@@ -1,6 +1,6 @@
 import styles from "./Footer.module.css";
 
-const Footer = ({ company, year }) => {
+const Footer = ({ year, company }) => {
   return (
     <footer className={styles.footer}>
       {company} {year}
