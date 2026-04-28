@@ -12,3 +12,7 @@
   flex-direction: row;
   gap: 1rem;
 }
+
+.active {
+  color: cadetblue;
+}

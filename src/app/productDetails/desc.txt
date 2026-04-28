@@ -1,0 +1,6 @@
+[slug] - არის დინამიკური რაუთი, რომელიც მოთავსებულია productDetails რაუთში.
+შესაბამისად შეგვიძლია ვებგვერდზე გვქონდეს შემდეგი სახის მისამართები:
+/productDetails/5
+/productDetails/150
+/productDetails/hh-55
+/productDetails/2163912683
