@@ -1,0 +1,48 @@
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px 30px;
+  border: 1px solid #ccc;
+  background-color: white;
+  margin-top: 80px;
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.notResgitered {
+  border: none;
+  background-color: transparent;
+  padding: 10px 20px 0px;
+  width: 100%;
+  margin-top: 1rem;
+  color: rgb(68, 111, 128);
+}
+
+.inputWrapper {
+  margin-bottom: 30px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  height: 50px;
+  padding: 5px 10px;
+}
+
+.button {
+  border-radius: 40px;
+  width: 100%;
+  margin-top: 1rem;
+  height: 50px;
+  background-color: rgb(110, 110, 233);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: red;
+}
