@@ -1,16 +1,26 @@
 "use client";
-
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/lib/hooks";
+import { updateUser } from "@/lib/slices/userSlice";
 
 function page() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const inputRef = useRef(null);
+
   const [username, setUsername] = useState("johnd");
   const [password, setPassword] = useState("m38rmF$");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.focus();
+    }
+  }, [inputRef.current]);
 
   const handleSubmit = async (e) => {
     // e იგივეა რაც event
@@ -29,9 +39,13 @@ function page() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: username, password: password }),
       });
-
       const result = await response.json();
+
       if (result?.token) {
+        const userData = await fetch("https://fakestoreapi.com/users/1");
+        const parsedUserData = await userData.json();
+
+        dispatch(updateUser(parsedUserData));
         router.push("/");
       }
     } catch (error) {
@@ -49,6 +63,7 @@ function page() {
           placeholder="username"
           onChange={(event) => setUsername(event.target.value)}
           className={styles.input}
+          ref={inputRef}
         />
 
         <input

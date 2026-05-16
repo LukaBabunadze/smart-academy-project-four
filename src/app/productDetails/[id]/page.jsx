@@ -2,10 +2,14 @@
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/lib/hooks";
+import { addToCart } from "@/lib/slices/cartSlice";
 
 function page() {
   const { id } = useParams();
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const [singleProduct, setSingleProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -41,11 +45,16 @@ function page() {
     }
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart(singleProduct));
+  };
+
   return (
     <div>
       <h2>{singleProduct.title}</h2>
       <p>{singleProduct.description}</p>
       <button onClick={handleDelete}>delete</button>
+      <button onClick={handleAddToCart}>add to cart</button>
     </div>
   );
 }

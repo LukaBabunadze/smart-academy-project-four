@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import StoreProvider from "./StoreProvider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -32,9 +33,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${montserrat.className}`}>
       <body>
-        <Navbar />
-        {children}
-        <Footer year={data.year} company={data.company} />
+        <StoreProvider>
+          <Navbar />
+          {children}
+          <Footer year={data.year} company={data.company} />
+        </StoreProvider>
       </body>
     </html>
   );
