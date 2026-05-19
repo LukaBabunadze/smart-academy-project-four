@@ -5,6 +5,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { checkUser } from "@/helpers";
 
 const userSchema = yup.object().shape({
   username: yup
@@ -32,6 +34,11 @@ function page() {
     reset,
   } = useForm({ resolver: yupResolver(userSchema) });
 
+  useEffect(() => {
+    const exists = checkUser();
+    if (exists) return router.push("/");
+  }, []);
+
   const handleRegister = async (data) => {
     try {
       const response = await fetch("https://fakestoreapi.com/users", {
@@ -43,7 +50,7 @@ function page() {
       const result = await response.json();
       if (result?.id) {
         reset();
-        router.push("/");
+        router.push("/login");
       }
     } catch (error) {
       console.error(error);

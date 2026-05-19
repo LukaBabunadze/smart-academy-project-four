@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/hooks";
 import { updateUser } from "@/lib/slices/userSlice";
+import { checkUser } from "@/helpers";
 
 function page() {
   const router = useRouter();
@@ -21,6 +22,13 @@ function page() {
       inputRef.current.focus();
     }
   }, [inputRef.current]);
+
+  useEffect(() => {
+    const exists = checkUser();
+    if (exists) {
+      router.push("/");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     // e იგივეა რაც event
@@ -46,6 +54,8 @@ function page() {
         const parsedUserData = await userData.json();
 
         dispatch(updateUser(parsedUserData));
+        localStorage.setItem("token", JSON.stringify(result.token));
+        localStorage.setItem("user", JSON.stringify(parsedUserData));
         router.push("/");
       }
     } catch (error) {

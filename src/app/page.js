@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/lib/hooks";
+import { checkUser } from "@/helpers";
 
 export default function Home() {
   const router = useRouter();
@@ -12,8 +13,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const user = useAppSelector((state) => state.user);
-
-  console.log("this is our user: ", user);
 
   const fetchProducts = async () => {
     try {
@@ -29,6 +28,10 @@ export default function Home() {
 
   useEffect(() => {
     fetchProducts();
+    const exists = checkUser();
+    if (!exists) {
+      router.push("/login");
+    }
   }, []);
 
   if (loading) {
